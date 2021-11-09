@@ -1,0 +1,38 @@
+version: '3'
+services:
+  admin:
+    container_name: lara_admin
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: 'php artisan serve --host=0.0.0.0'
+    volumes:
+      - .:/app
+    ports:
+      - 8000:8000
+    depends_on:
+      - admin_db
+
+  admin_queue:
+    container_name: lara_admin_queue
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    command: 'php artisan queue:work'
+    depends_on:
+      - admin_db
+
+  admin_db:
+    container_name: lara_admin_db
+    image: mysql:8
+    environment:
+      MYSQL_DATABASE: admin
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: pass_12345
+      MYSQL_ROOT_PASSWORD: pass_12345
+    volumes:
+      - ./storage/dbdata:/var/lib/mysql
+    ports:
+      - 33063:3306

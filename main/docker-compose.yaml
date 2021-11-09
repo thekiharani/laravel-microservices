@@ -1,0 +1,38 @@
+version: '3'
+services:
+  main:
+    container_name: lara_main
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: 'php artisan serve --host=0.0.0.0'
+    volumes:
+      - .:/app
+    ports:
+      - 8001:8000
+    depends_on:
+      - main_db
+
+  main_queue:
+    container_name: lara_main_queue
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    command: 'php artisan queue:work'
+    depends_on:
+      - main_db
+
+  main_db:
+    container_name: lara_main_db
+    image: mysql:8
+    environment:
+      MYSQL_DATABASE: main
+      MYSQL_USER: master
+      MYSQL_PASSWORD: pass_12345
+      MYSQL_ROOT_PASSWORD: pass_12345
+    volumes:
+      - ./storage/dbdata:/var/lib/mysql
+    ports:
+      - 33064:3306

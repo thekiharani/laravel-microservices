@@ -1,0 +1,36 @@
+### Trash Product
+DELETE http://localhost:8000/api/products/1
+Content-Type: application/json
+Accept: application/json
+
+
+### Update Product
+PUT http://localhost:8000/api/products/1
+Content-Type: application/json
+Accept: application/json
+
+{
+    "name": "Geek Product II",
+    "image": "https://images.wisegeek.com/nerdy-man-in-checkered-shirt-with-computer.jpg"
+}
+
+### Store Product
+POST http://localhost:8000/api/products
+Content-Type: application/json
+Accept: application/json
+
+{
+    "name": "Geek Product",
+    "image": "https://st.depositphotos.com/1000975/2990/i/600/depositphotos_29904073-stock-photo-computer-geek-nerd-in-funny.jpg"
+}
+
+### List Products
+GET http://localhost:8000/api/products
+Content-Type: application/json
+Accept: application/json
+
+### Product Details
+GET http://localhost:8000/api/products/1
+Content-Type: application/json
+Accept: application/json
+
